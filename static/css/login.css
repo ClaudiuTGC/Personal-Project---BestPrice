@@ -1,0 +1,27 @@
+.container {
+	background-color: #CD5C5C;
+	
+	border-style: groove;
+	max-width: 500px;
+  	margin: auto;
+  	padding-top: 100px;
+  	padding-bottom: 50px;
+
+}
+
+#login-button {
+	
+	padding-left: 192px;
+}
+
+#info {
+	padding-left: 60px;
+	font-size: 20px;
+	font-family: New Century Schoolbook, TeX Gyre Schola, serif;
+}
+
+#title {
+	color: white;
+	font-family: Trebuchet MS, sans-serif;
+	font-weight: 600;
+}

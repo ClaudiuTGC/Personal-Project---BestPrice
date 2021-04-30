@@ -1,0 +1,46 @@
+{% extends "templates/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{% static '/css/login.css' %}">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{% endblock %}
+
+{% block content %}
+	<style>
+		body {
+			background-image: url(' {% static 'img/laptop.png' %} '); 
+			background-repeat: no-repeat; 
+			background-size: 1700px 900px; 
+			background-position: top; 
+			background-attachment: fixed;
+		}
+	</style>
+	<center>
+		<div style="align-content: center;">
+			<h1 id="title" style="align-content: center; text-shadow: 1px 1px 1px #ccc;">Va rugam sa va autentificati.</h1>
+		</div>
+	</center>
+	<div  class="container" style="background-color: #DCDCDC; border-radius: 10px;">
+		<form method="POST">
+			{% csrf_token %}
+			<div style="width: 400px; padding-left: 90px;" class="row">
+				<div class="form-group">
+					{{ form.username|as_crispy_field }}		
+				</div>		
+			</div>
+			<div style="width: 400px; padding-left: 90px;" class="row">
+				{{ form.password|as_crispy_field }}
+			</div>
+			<div id="login-button" class="form-group">
+				<button class="btn btn-primary"  type="submit"> Log In </button>
+			</div>
+		</form>
+		<div id="info">
+			<p style="color: black; padding-left: 30px;"> Nu ai un cont ? Creeaza unul <a href="{% url 'register' %}">aici.</a></p>
+		</div>
+	</div>
+{% endblock %}

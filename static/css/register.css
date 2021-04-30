@@ -1,0 +1,31 @@
+body {
+    background: black;
+}
+
+#title {
+	color: white;
+	font-family: American Typewriter, serif;
+	font-weight: 600;
+	text-shadow: 1px 1px 1px #ccc;
+}
+
+.username {
+	color: black;
+}
+
+.row {
+	width: 1000px;
+	size: 100px;
+	padding-left: 190px;
+}
+
+#button {
+	padding-left: 320px;
+}
+
+#info {
+	padding-left: 160px;
+	font-family: New Century Schoolbook, TeX Gyre Schola, serif;
+	font-size: 20px;
+	color: black;
+}

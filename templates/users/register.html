@@ -1,0 +1,66 @@
+{% extends "templates/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{% endblock %}
+
+{% block content %}
+	<style>
+		body {
+			background-image: url(' {% static 'img/laptop.png' %} '); 
+			background-repeat: no-repeat; 
+			background-size: 1800px 900px; 
+			background-position: top; 
+			background-attachment: fixed;
+		}
+	</style>
+	<div>
+		<h1 id="title" style="padding-left: 440px;color: white; font-family: Trebuchet MS, sans-serif; font-weight: 600; text-shadow: 1px 1px 1px #ccc;">Bine ati venit. Va rugam sa creeati un cont.</h1>
+	</div>
+	<div class="container" style="background-color: #DCDCDC; border-style: groove; border-radius: 10px;">
+		<div class="row centered-form">
+			<form  method="POST" novalidate>
+				{% csrf_token %}			
+				<div class="row">
+					<div class="col-xs-6 col-sm-6 col-md-6">
+						<div class="form-group">
+							{{ form.username|as_crispy_field }}						
+						</div>
+					</div>
+				</div>
+				<div class="row">	
+					<div class="col-xs-6 col-sm-6 col-md-6">
+						<div class="form-group">						
+							{{ form.email|as_crispy_field }}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6 col-sm-6 col-md-6">
+						<div class="form-group">						
+							{{ form.password1|as_crispy_field }}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6 col-sm-6 col-md-6">
+						<div class="form-group">							
+							{{ form.password2|as_crispy_field }}
+						</div>
+					</div>
+				</div>
+				<div id="button" class="form-group">
+					<button class="btn btn-primary" type="submit"> Creeaza contul </button>
+				</div>
+			</form>
+			<div >
+				<p id="info" style="font-family: New Century Schoolbook, TeX Gyre Schola, serif; padding-left: 190px;"> Ai deja un cont creat? Atunci logheaza-te <a href="{% url 'login' %}">aici.</a></p>
+			</div>		
+		</div>
+	</div>
+{% endblock %}

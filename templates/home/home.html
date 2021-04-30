@@ -1,0 +1,39 @@
+{% extends "templates/base.html" %}
+{% load static %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+	
+{% endblock %}
+
+{% block content %}
+	<style>
+		body {
+			background-image: url(' {% static 'img/laptop.png' %} '); 
+			background-repeat: no-repeat; 
+			background-size: 1800px 900px; 
+			background-position: top; 
+			background-attachment: fixed;
+		}
+	</style>
+	<div id="title" align="center">
+		<h1 style="font-weight: bold;">Salutare {{request.user}}. Ce componente cauti? </h1>
+	</div>
+	{% for index in object %}
+		<form method="POST">
+			{% csrf_token%}
+			<div class="container">
+				<div class="row">
+					<div class="col-sm" id="photo">
+						{% if index.image %}
+							<img class="image" src="{{ index.image }}">
+						{% endif %}
+					</div>
+					<div id="category" class="col-sm">
+						<a id="text" href='{{ index.get_absolute_url }}'> {{index.name}}</a>
+					</div>
+				</div>
+			</div>
+		</form>
+	{% endfor %}
+{% endblock %}

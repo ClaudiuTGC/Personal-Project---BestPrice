@@ -1,0 +1,69 @@
+{% extends "templates/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{% static '/css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+	<style>
+		body {
+			background-image: url(' {% static 'img/laptop.png' %} '); 
+			background-repeat: no-repeat; 
+			background-size: 1800px 900px; 
+			background-position: top; 
+			background-attachment: fixed;
+		}
+	</style>
+
+	<h1 id="title">Aici poti descrie experienta ta cu acest produs sau poti vizualiza parerile celorlalti clienti.</h1>
+	<div class="container">			
+		<div id="box" class="d-flex justify-content-start">
+			<div>
+				{% if object.image %}
+					<img class="image" src="{{ index.image.url }}">
+				{% endif %}
+			</div>
+			<div>
+				<div id="name"> {{ object.name }} </div>
+				<div id="price"> Pret: {{ object.price }} </div>
+				<div id="link"> Magazin:<a style="color: white;" href="{{ index.link }}">{{ object.link }} </a></div>
+			</div>
+		</div>				
+	</div>
+		
+	
+	<br><br>
+	<hr>
+	<div class="container">
+		<form  method="post">
+			{% csrf_token %}
+			<div>
+				{{ comment_form.text|as_crispy_field }}
+			</div>
+			{% if request.user.is_authenticated %}
+				<input type="submit" value="Posteaza" class="btn btn-primary" style="margin-top: 20px; background-color: white; color: black; border-color: white;">
+			{% else %}
+				<input type="submit" value="Submit" class="btn btn-outline-succes" style="margin-top: 20px; background-color: white; color: black; border-color: white;" disabled>
+			{% endif %}
+		</form>
+		
+
+		<div class="main-comment-section" style="margin-top: 10px;">
+			{{ object2.count }} Comentarii
+			{% for index in object2 %}
+				<figure style="padding-top: 10px;">
+					<blockquote class="blockquote">
+				    	<p style="font-weight: 15px;">{{ index.text }}</p>
+					</blockquote>
+				  	<figcaption class="blockquote-footer">
+				    	postat de catre <cite title="Source Title">{{ index.user|capfirst}}</cite>
+					</figcaption>
+				</figure>
+			{% endfor %}
+		</div>
+
+	</div>
+{% endblock %}

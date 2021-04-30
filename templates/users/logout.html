@@ -1,0 +1,14 @@
+{% extends "templates/base.html" %}
+{% load static %}
+{% block content %}
+	<style>
+		body {
+			background-image: url(' {% static 'img/laptop.png' %} '); 
+			background-repeat: no-repeat; 
+			background-size: 1800px 900px; 
+			background-position: top; 
+			background-attachment: fixed;
+		}
+	</style>
+	<h1 style="text-align: center; text-shadow: 1px 1px 1px #ccc; color: #FFF5EE; font-family: arial;">Te-ai delogat cu succes!</h1>
+{% endblock %}

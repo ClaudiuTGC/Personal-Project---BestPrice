@@ -1,0 +1,35 @@
+{% extends "templates/base.html" %}
+{% load static %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{% static '/css/wishlist.css' %}">
+{% endblock %}
+
+{% block content %}
+	<style>
+		body {
+			background-image: url(' {% static 'img/laptop.png' %} '); 
+			background-repeat: no-repeat; 
+			background-size: 1800px 900px; 
+			background-position: top; 
+			background-attachment: fixed;
+		}
+	</style>
+	{% for index in new %}
+		<div class="container">
+			<div id="box" class="d-flex justify-content-start">
+				<div>
+					{% if index.image %}
+						<img class="image" src="{{ index.image.url }}">
+					{% endif %}
+				</div>
+				<div>
+					<div id="name"> {{ index.name }} </div>
+					<div id="price"> Pret: {{ index.price }} </div>
+					<div id="link"> Magazin:<a style="color: white;" href="{{ index.link }}">{{ index.link }} </a></div>
+				</div>
+			</div>
+				<a class="btn btn-primary" style="background-color: grey; border-color: grey;" href="{% url 'list_add' index.id %}">Sterge</a>
+		</div>
+	{% endfor %}
+{% endblock%}

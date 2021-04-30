@@ -1,0 +1,45 @@
+{% extends "templates/base.html" %}
+{% load static %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{% static '/css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+	<style>
+		body {
+			background-image: url(' {% static 'img/laptop.png' %} '); 
+			background-repeat: no-repeat; 
+			background-size: 1800px 900px; 
+			background-position: top; 
+			background-attachment: fixed;
+		}
+	</style>
+	<h1 id="title">Acestea sunt produsele cautate, insotite de un link catre magazinul cu cel mai mic pret si de incredere.</h1>
+	{% for index in object %}
+		{% if index.category == object2 %}
+			<div class="container">
+					<form method="POST">
+						{% csrf_token %}
+						<div id="box" class="d-flex justify-content-start">
+							<div>
+								{% if index.image %}
+									<img class="image" src="{{ index.image.url }}">
+								{% endif %}
+							</div>
+							<div>
+								<div id="name"> <a style="color:black;" href="{% url 'product' index.id %}"> {{ index.name }} </a></div>
+								<div id="price"> Pret: {{ index.price }} </div>
+								<div id="link"> Magazin:<a style="color: white;" href="{{ index.link }}">{{ index.link }} </a></div>
+							</div>
+						</div>
+						{% if request.user.is_authenticated %}
+							<a style="background-color: grey; border-color: grey; margin-bottom: 10px; color: white; margin-left: 30px" class="btn btn-primary" href="{% url 'list_add' index.id %}"> Adauga in lista </a>
+						{% else %}
+							<a style="background-color: grey; border-color: grey; margin-bottom: 10px; color: white; margin-left: 30px;" class="btn btn-primary" href="{% url 'register' %}"> Adauga in lista </a>
+						{% endif %}
+					</form>
+			</div>
+		{% endif %}
+	{% endfor %}
+{% endblock %}
