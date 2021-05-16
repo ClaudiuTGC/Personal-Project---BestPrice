@@ -14,6 +14,12 @@ class CommentsModel(models.Model):
 	component = models.ForeignKey(ProductsModel,on_delete=models.SET_NULL, null=True)
 	text = models.TextField(null=False) 
 	date = models.DateTimeField(default=timezone.now)
+	rating = models.IntegerField(default=0,
+		validators = [
+			MaxValueValidator(5),
+			MinValueValidator(0),
+		]
+	)
 
 	def __str__(self):
 		return '%s %s' % (self.component.name, self.user.username)
