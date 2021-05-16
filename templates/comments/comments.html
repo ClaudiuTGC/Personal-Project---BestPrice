@@ -4,7 +4,8 @@
 
 
 {% block head %}
-	<link rel="stylesheet" type="text/css" href="{% static '/css/products.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/products.css' %}">
+	<script src="{% static 'js/comments.js' %}" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -17,13 +18,12 @@
 			background-attachment: fixed;
 		}
 	</style>
-
 	<h1 id="title">Aici poti descrie experienta ta cu acest produs sau poti vizualiza parerile celorlalti clienti.</h1>
 	<div class="container">			
 		<div id="box" class="d-flex justify-content-start">
 			<div>
-				{% if object.image %}
-					<img class="image" src="{{ index.image.url }}">
+				{% if object.url_image %}
+					<img class="image" src="{{ object.url_image }}">
 				{% endif %}
 			</div>
 			<div>
@@ -33,28 +33,64 @@
 			</div>
 		</div>				
 	</div>
-		
-	
 	<br><br>
 	<hr>
 	<div class="container">
-		<form  method="post">
+		<form style="margin-top: 10px;" method="post" class="rate-form">
 			{% csrf_token %}
+				<button type="button" class="fa fa-star fa-2x my-btn" id="first"></button>
+                <button type="button" class="fa fa-star fa-2x my-btn" id="second"></button>
+                <button type="button" class="fa fa-star fa-2x my-btn" id="third"></button>
+                <button type="button" class="fa fa-star fa-2x my-btn" id="fourth"></button>
+                <button type="button" class="fa fa-star fa-2x my-btn" id="fifth"></button>
+                <input type="hidden" name="rate" id="rating" value="0">
 			<div>
 				{{ comment_form.text|as_crispy_field }}
 			</div>
 			{% if request.user.is_authenticated %}
 				<input type="submit" value="Posteaza" class="btn btn-primary" style="margin-top: 20px; background-color: white; color: black; border-color: white;">
 			{% else %}
-				<input type="submit" value="Submit" class="btn btn-outline-succes" style="margin-top: 20px; background-color: white; color: black; border-color: white;" disabled>
+				<a href="{% url 'login' %}" class="btn btn-outline-succes" style="margin-top: 20px; background-color: white; color: black; border-color: white;" >Posteaza</a>
 			{% endif %}
 		</form>
-		
+		<br>
+        <div id="confirm-box"></div>
 
 		<div class="main-comment-section" style="margin-top: 10px;">
 			{{ object2.count }} Comentarii
 			{% for index in object2 %}
-				<figure style="padding-top: 10px;">
+				<figure style="padding-top: 10px; border-style: groove; border-radius: 9px; padding-left: 15px;">
+					{% if index.rating == 1 %}
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: black;" class="fa fa-star fa-2x"></div>
+						<div style="color: black;" class="fa fa-star fa-2x"></div>
+						<div style="color: black;" class="fa fa-star fa-2x"></div>
+						<div style="color: black;" class="fa fa-star fa-2x"></div>
+					{% elif index.rating == 2 %}
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: black;" class="fa fa-star fa-2x"></div>
+						<div style="color: black;" class="fa fa-star fa-2x"></div>
+						<div style="color: black;" class="fa fa-star fa-2x"></div>
+					{% elif index.rating == 3 %}
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: black;" class="fa fa-star fa-2x"></div>
+						<div style="color: black;" class="fa fa-star fa-2x"></div>
+					{% elif index.rating == 4 %}
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: black;" class="fa fa-star fa-2x"></div>
+					{% elif index.rating == 5 %}
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+						<div style="color: white;" class="fa fa-star fa-2x"></div>
+					{% endif %}
 					<blockquote class="blockquote">
 				    	<p style="font-weight: 15px;">{{ index.text }}</p>
 					</blockquote>
@@ -66,4 +102,5 @@
 		</div>
 
 	</div>
+
 {% endblock %}
