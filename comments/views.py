@@ -13,7 +13,8 @@ def comments_view(request, id):
 		comment_form = CommentsForm(request.POST or None)
 		if comment_form.is_valid():
 			text = request.POST.get('text')
-			comment_form = CommentsModel.objects.create(component=component, user=request.user, text=text)
+			rating = request.POST.get('rate')
+			comment_form = CommentsModel.objects.create(component=component, user=request.user, text=text, rating=rating)
 			comment_form.save()
 			return HttpResponseRedirect(component.get_absolute_url())
 	else:
